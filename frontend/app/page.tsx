@@ -47,14 +47,7 @@ export default function HomePage() {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100
-      }
-    }
+    visible: { y: 0, opacity: 1 }
   };
 
   const buttonVariants = {
@@ -69,7 +62,7 @@ export default function HomePage() {
       initial="hidden"
       animate="visible"
     >
-      <motion.div className="text-center mb-12" variants={itemVariants}>
+      <motion.div className="text-center mb-12" variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
         <motion.div
           className="inline-block p-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6"
           whileHover={{ scale: 1.05 }}
@@ -85,6 +78,7 @@ export default function HomePage() {
         <motion.p
           className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto"
           variants={itemVariants}
+          transition={{ type: 'spring', stiffness: 100 }}
         >
           {user
             ? (
@@ -103,7 +97,7 @@ export default function HomePage() {
       </motion.div>
 
       {!user && (
-        <motion.div className="mt-12 text-center" variants={itemVariants}>
+        <motion.div className="mt-12 text-center" variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
           <motion.div
             className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-premium p-8 max-w-md mx-auto border border-gray-200/50"
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
@@ -150,7 +144,7 @@ export default function HomePage() {
       )}
 
       {user && (
-        <motion.div className="mt-12 text-center" variants={itemVariants}>
+        <motion.div className="mt-12 text-center" variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
           <motion.div
             className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-premium p-8 max-w-md mx-auto border border-blue-100/50"
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
@@ -165,6 +159,7 @@ export default function HomePage() {
             <motion.p
               className="text-gray-600 mb-6"
               variants={itemVariants}
+              transition={{ type: 'spring', stiffness: 100 }}
             >
               Your tasks are waiting. Let's get started!
             </motion.p>
@@ -182,7 +177,7 @@ export default function HomePage() {
         </motion.div>
       )}
 
-      <motion.div className="mt-16 max-w-5xl mx-auto" variants={itemVariants}>
+      <motion.div className="mt-16 max-w-5xl mx-auto" variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[{
             icon: '🔒',

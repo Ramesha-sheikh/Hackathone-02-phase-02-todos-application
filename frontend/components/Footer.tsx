@@ -19,14 +19,7 @@ const Footer = () => {
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100
-      }
-    }
+    visible: { y: 0, opacity: 1 }
   };
 
   return (
@@ -42,7 +35,7 @@ const Footer = () => {
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-2">
+          <motion.div variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }} className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <span className="text-2xl">✨</span>
               <h3 className={`text-xl font-bold ${
@@ -59,7 +52,7 @@ const Footer = () => {
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
             <h4 className={`font-semibold mb-4 ${
               darkMode ? 'text-slate-200' : 'text-gray-900'
             }`}>Product</h4>
@@ -79,7 +72,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
+          <motion.div variants={itemVariants} transition={{ type: 'spring', stiffness: 100 }}>
             <h4 className={`font-semibold mb-4 ${
               darkMode ? 'text-slate-200' : 'text-gray-900'
             }`}>Support</h4>
@@ -103,6 +96,7 @@ const Footer = () => {
         <motion.div
           className="mt-8 pt-8 border-t flex flex-col md:flex-row justify-between items-center"
           variants={itemVariants}
+          transition={{ type: 'spring', stiffness: 100 }}
         >
           <p className={`text-sm ${
             darkMode ? 'text-slate-500' : 'text-gray-500'

@@ -31,7 +31,7 @@ export default function Navbar() {
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } }
+    visible: { opacity: 1, y: 0 }
   };
 
   const linkVariants = {
@@ -48,6 +48,7 @@ export default function Navbar() {
       variants={navVariants}
       initial="hidden"
       animate="visible"
+      transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">

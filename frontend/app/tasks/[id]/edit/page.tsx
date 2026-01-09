@@ -22,7 +22,7 @@ interface Task {
 export default function EditTaskPage() {
   const router = useRouter();
   const params = useParams();
-  const taskId = parseInt(params.id as string, 10);
+  const taskId = params?.id ? parseInt(params.id as string, 10) : NaN;
 
   const [task, setTask] = useState<Task | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -30,10 +30,20 @@ export default function EditTaskPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (isNaN(taskId)) {
+      setError('Invalid task ID');
+      return;
+    }
     fetchTask();
-  }, []);
+  }, [taskId]);
 
   const fetchTask = async () => {
+    if (isNaN(taskId)) {
+      setError('Invalid task ID');
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -45,6 +55,10 @@ export default function EditTaskPage() {
       }
 
       const token = localStorage.getItem('jwt_token');
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
       const taskData = await todoAPI.getTask(user.id, taskId, token);
       setTask(taskData);
     } catch (err: any) {
@@ -56,6 +70,11 @@ export default function EditTaskPage() {
   };
 
   const handleSubmit = async (taskData: { title: string; description?: string; completed?: boolean }) => {
+    if (isNaN(taskId)) {
+      setError('Invalid task ID');
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       setError(null);
@@ -67,6 +86,10 @@ export default function EditTaskPage() {
       }
 
       const token = localStorage.getItem('jwt_token');
+      if (!token) {
+        throw new Error('Authentication token not found');
+      }
+
       await todoAPI.updateTask(user.id, taskId, taskData, token);
 
       // Redirect to tasks page after successful update
@@ -83,6 +106,22 @@ export default function EditTaskPage() {
   const handleCancel = () => {
     router.back();
   };
+
+  if (isNaN(taskId)) {
+    return (
+      <div className="rounded-md bg-red-50 p-4">
+        <div className="text-sm text-red-700">
+          <p>Error: Invalid task ID</p>
+          <button
+            onClick={() => router.push('/tasks')}
+            className="mt-2 px-4 py-2 bg-red-100 text-red-700 rounded hover:bg-red-200"
+          >
+            Go to Tasks
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
