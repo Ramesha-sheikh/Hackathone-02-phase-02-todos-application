@@ -3,8 +3,9 @@
  * Connects to both auth and todo backends
  */
 
-const AUTH_BASE_URL = process.env.NEXT_PUBLIC_AUTH_API_URL || 'http://localhost:8001';
-const TODO_BASE_URL = process.env.NEXT_PUBLIC_TODO_API_URL || 'http://localhost:8000';
+// Use Next.js API routes for proxying to backend services
+const PROXY_AUTH_URL = '/api/auth';
+const PROXY_TODO_URL = '/api/todo';
 
 // Function to handle API responses
 const handleResponse = async (response: Response) => {
@@ -19,7 +20,7 @@ const handleResponse = async (response: Response) => {
 export const authAPI = {
   // Register a new user
   register: async (userData: { email: string; name: string; password: string }) => {
-    const response = await fetch(`${AUTH_BASE_URL}/auth/register`, {
+    const response = await fetch(`${PROXY_AUTH_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +37,7 @@ export const authAPI = {
     formData.append('email', credentials.email);
     formData.append('password', credentials.password);
 
-    const response = await fetch(`${AUTH_BASE_URL}/auth/login`, {
+    const response = await fetch(`${PROXY_AUTH_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -52,7 +53,7 @@ export const authAPI = {
 export const todoAPI = {
   // Get all tasks for a user
   getTasks: async (userId: string, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -64,7 +65,7 @@ export const todoAPI = {
 
   // Get a specific task for a user
   getTask: async (userId: string, taskId: number, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks/${taskId}`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}&taskId=${taskId}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -76,13 +77,13 @@ export const todoAPI = {
 
   // Create a new task for a user
   createTask: async (userId: string, taskData: any, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(taskData),
+      body: JSON.stringify({ ...taskData, user_id: userId }),
     });
 
     return handleResponse(response);
@@ -90,7 +91,7 @@ export const todoAPI = {
 
   // Update a task
   updateTask: async (userId: string, taskId: number, taskData: any, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks/${taskId}`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}&taskId=${taskId}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -104,7 +105,7 @@ export const todoAPI = {
 
   // Delete a task
   deleteTask: async (userId: string, taskId: number, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks/${taskId}`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}&taskId=${taskId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -117,7 +118,7 @@ export const todoAPI = {
 
   // Toggle task completion
   toggleTaskCompletion: async (userId: string, taskId: number, token: string) => {
-    const response = await fetch(`${TODO_BASE_URL}/api/${userId}/tasks/${taskId}/complete`, {
+    const response = await fetch(`${PROXY_TODO_URL}?userId=${encodeURIComponent(userId)}&taskId=${taskId}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${token}`,

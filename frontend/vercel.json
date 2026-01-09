@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_AUTH_API_URL": "https://your-auth-backend-url.vercel.app",
+    "NEXT_PUBLIC_TODO_API_URL": "https://your-todo-backend-url.vercel.app"
+  }
+}
