@@ -6,6 +6,20 @@
       "use": "@vercel/next"
     }
   ],
+  "routes": [
+    {
+      "src": "/api/auth/(.*)",
+      "dest": "/api/auth"
+    },
+    {
+      "src": "/api/todo/(.*)",
+      "dest": "/api/todo"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "$1"
+    }
+  ],
   "env": {
     "NEXT_PUBLIC_AUTH_API_URL": "https://your-auth-backend-url.vercel.app",
     "NEXT_PUBLIC_TODO_API_URL": "https://your-todo-backend-url.vercel.app"

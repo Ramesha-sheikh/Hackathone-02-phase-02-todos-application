@@ -5,6 +5,14 @@ export async function GET(request) {
   try {
     const todoApiUrl = process.env.NEXT_PUBLIC_TODO_API_URL || process.env.TODO_API_URL || 'http://localhost:8000';
 
+    // Validate that todoApiUrl is set
+    if (!todoApiUrl || todoApiUrl.includes('your-')) {
+      return NextResponse.json({
+        error: 'Backend service not configured',
+        details: 'Please set the NEXT_PUBLIC_TODO_API_URL environment variable'
+      }, { status: 503 });
+    }
+
     // Determine the correct endpoint based on the request
     const url = new URL(request.url);
     const path = url.pathname.split('/api/todo')[1] || '';
@@ -22,13 +30,26 @@ export async function GET(request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
-    return NextResponse.json({ error: 'Proxy error', details: error.message }, { status: 500 });
+    console.error('Todo API proxy error:', error);
+    return NextResponse.json({
+      error: 'Proxy error',
+      details: error.message,
+      message: 'Unable to connect to todo service'
+    }, { status: 503 });
   }
 }
 
 export async function POST(request) {
   try {
     const todoApiUrl = process.env.NEXT_PUBLIC_TODO_API_URL || process.env.TODO_API_URL || 'http://localhost:8000';
+
+    // Validate that todoApiUrl is set
+    if (!todoApiUrl || todoApiUrl.includes('your-')) {
+      return NextResponse.json({
+        error: 'Backend service not configured',
+        details: 'Please set the NEXT_PUBLIC_TODO_API_URL environment variable'
+      }, { status: 503 });
+    }
 
     // Determine the correct endpoint based on the request
     const url = new URL(request.url);
@@ -49,13 +70,26 @@ export async function POST(request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
-    return NextResponse.json({ error: 'Proxy error', details: error.message }, { status: 500 });
+    console.error('Todo API proxy error:', error);
+    return NextResponse.json({
+      error: 'Proxy error',
+      details: error.message,
+      message: 'Unable to connect to todo service'
+    }, { status: 503 });
   }
 }
 
 export async function PUT(request) {
   try {
     const todoApiUrl = process.env.NEXT_PUBLIC_TODO_API_URL || process.env.TODO_API_URL || 'http://localhost:8000';
+
+    // Validate that todoApiUrl is set
+    if (!todoApiUrl || todoApiUrl.includes('your-')) {
+      return NextResponse.json({
+        error: 'Backend service not configured',
+        details: 'Please set the NEXT_PUBLIC_TODO_API_URL environment variable'
+      }, { status: 503 });
+    }
 
     // Determine the correct endpoint based on the request
     const url = new URL(request.url);
@@ -76,13 +110,26 @@ export async function PUT(request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
-    return NextResponse.json({ error: 'Proxy error', details: error.message }, { status: 500 });
+    console.error('Todo API proxy error:', error);
+    return NextResponse.json({
+      error: 'Proxy error',
+      details: error.message,
+      message: 'Unable to connect to todo service'
+    }, { status: 503 });
   }
 }
 
 export async function DELETE(request) {
   try {
     const todoApiUrl = process.env.NEXT_PUBLIC_TODO_API_URL || process.env.TODO_API_URL || 'http://localhost:8000';
+
+    // Validate that todoApiUrl is set
+    if (!todoApiUrl || todoApiUrl.includes('your-')) {
+      return NextResponse.json({
+        error: 'Backend service not configured',
+        details: 'Please set the NEXT_PUBLIC_TODO_API_URL environment variable'
+      }, { status: 503 });
+    }
 
     // Determine the correct endpoint based on the request
     const url = new URL(request.url);
@@ -101,13 +148,26 @@ export async function DELETE(request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
-    return NextResponse.json({ error: 'Proxy error', details: error.message }, { status: 500 });
+    console.error('Todo API proxy error:', error);
+    return NextResponse.json({
+      error: 'Proxy error',
+      details: error.message,
+      message: 'Unable to connect to todo service'
+    }, { status: 503 });
   }
 }
 
 export async function PATCH(request) {
   try {
     const todoApiUrl = process.env.NEXT_PUBLIC_TODO_API_URL || process.env.TODO_API_URL || 'http://localhost:8000';
+
+    // Validate that todoApiUrl is set
+    if (!todoApiUrl || todoApiUrl.includes('your-')) {
+      return NextResponse.json({
+        error: 'Backend service not configured',
+        details: 'Please set the NEXT_PUBLIC_TODO_API_URL environment variable'
+      }, { status: 503 });
+    }
 
     // Determine the correct endpoint based on the request
     const url = new URL(request.url);
@@ -126,6 +186,11 @@ export async function PATCH(request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error) {
-    return NextResponse.json({ error: 'Proxy error', details: error.message }, { status: 500 });
+    console.error('Todo API proxy error:', error);
+    return NextResponse.json({
+      error: 'Proxy error',
+      details: error.message,
+      message: 'Unable to connect to todo service'
+    }, { status: 503 });
   }
 }

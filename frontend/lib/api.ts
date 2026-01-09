@@ -10,7 +10,14 @@ const PROXY_TODO_URL = '/api/todo';
 // Function to handle API responses
 const handleResponse = async (response: Response) => {
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
+    // Try to get error data, but handle if response is not JSON
+    let errorData = {};
+    try {
+      errorData = await response.json();
+    } catch (e) {
+      // If response is not JSON, use status text
+      errorData = { detail: response.statusText || `HTTP error! status: ${response.status}` };
+    }
     throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
   }
   return response.json();
