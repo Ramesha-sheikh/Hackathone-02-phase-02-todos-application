@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 255, 255, 255;
+  --premium-black: 10, 10, 10;
+  --premium-charcoal: 30, 41, 59;
+  --premium-gold: 212, 175, 55;
+  --premium-silver: 192, 192, 192;
+  --card-bg: 255, 255, 255;
+  --text-primary: 15, 23, 42;
+  --border-color: 229, 231, 235;
+}
+
+.dark {
+  --foreground-rgb: 241, 245, 249;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 30, 41, 59;
+  --card-bg: 30, 41, 59;
+  --text-primary: 241, 245, 249;
+  --border-color: 30, 41, 59;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      135deg,
+      rgb(var(--background-start-rgb)) 0%,
+      rgb(var(--background-end-rgb)) 100%
+    );
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Premium styling for components */
+.card {
+  @apply bg-white dark:bg-slate-800 rounded-xl shadow-premium border border-gray-200 dark:border-slate-700 transition-all duration-300 hover:shadow-xl;
+}
+
+.button-primary {
+  @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200;
+}
+
+.button-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-gray-800 dark:text-gray-200 font-semibold py-3 px-6 rounded-lg border border-gray-200 dark:border-slate-600 transition-all duration-200;
+}
+
+.input-field {
+  @apply w-full px-4 py-3 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100;
+}
+
+/* Premium dark theme */
+.dark-mode {
+  @apply bg-gradient-to-br from-gray-900 via-slate-900 to-slate-800;
+}
+
+.dark-card {
+  @apply bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 text-white;
+}
+
+/* Gold accent */
+.gold-accent {
+  @apply text-amber-600 dark:text-amber-400 font-semibold;
+}
+
+/* Premium typography */
+.h1 {
+  @apply text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+}
+
+.h2 {
+  @apply text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100;
+}
+
+/* Task item styling */
+.task-item {
+  @apply p-4 rounded-xl border-l-4 border-blue-500 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 transition-all duration-200;
+}
+
+.task-completed {
+  @apply bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500;
+}
+
+/* Loading animation */
+.loading-spinner {
+  @apply animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 dark:border-blue-400;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] body {
+  background: linear-gradient(
+      135deg,
+      rgb(15, 23, 42) 0%,
+      rgb(30, 41, 59) 100%
+    );
+  color: rgb(241, 245, 249);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}

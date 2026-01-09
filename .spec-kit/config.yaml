@@ -1,0 +1,45 @@
+# Spec-Kit Configuration
+# Defines the phases and directories for the project workflow
+
+phases:
+  - name: constitution
+    description: Project principles and constraints
+    dir: ".specify/memory"
+
+  - name: specification
+    description: Feature specifications
+    dir: "specs/"
+
+  - name: planning
+    description: Implementation plans
+    dir: "specs/"
+
+  - name: tasks
+    description: Implementation tasks
+    dir: "specs/"
+
+  - name: implementation
+    description: Actual code implementation
+    dir: "."
+
+directories:
+  specs: "specs/"
+  backend: "backend/"
+  frontend: "frontend/"
+  docs: "docs/"
+  tests: "tests/"
+
+workflow:
+  sequence: ["constitution", "specification", "planning", "tasks", "implementation"]
+  strict_order: true
+  validate_before_proceeding: true
+
+validation:
+  required_files:
+    - "specs/**/spec.md"
+    - "specs/**/plan.md"
+    - "specs/**/tasks.md"
+  required_sections:
+    - "specification: user_scenarios"
+    - "specification: requirements"
+    - "specification: success_criteria"
